@@ -6,12 +6,14 @@ class Node {
 }
 
 class List {
-  constructor(node) {
+  constructor(value) {
+    let node = new Node(value)
     this.head = node
   }
 
   //   done add at end
-  addAtEnd(node) {
+  addAtEnd(value) {
+    let node = new Node(value)
     if (!this.head) {
       this.head = node
     } else {
@@ -22,16 +24,59 @@ class List {
   }
 
   //   done add at first
-  addAtFirst(node) {
+  addAtFirst(value) {
+    let node = new Node(value)
     if (!this.head) this.head = node
     else {
       node.next = this.head
       this.head = node
     }
   }
-  //   todo add at
 
-  //   todo remove at
+  //   done add at
+  addAt(value, idx) {
+    if (idx < 0) {
+      console.log("idx should highier than 0")
+      return
+    }
+
+    let node = new Node(value)
+
+    if (idx == 0) {
+      node.next = this.head
+      this.head = node
+      return
+    }
+
+    let pos = 0
+    let n = this.head
+    while (n.next && pos + 1 < idx) {
+      n = n.next
+      pos++
+    }
+    node.next = n.next
+    n.next = node
+  }
+
+  //   done remove at
+  removeAt(idx) {
+    if (!this.head) return
+
+    if (idx === 0) {
+      this.head = this.head.next
+    }
+
+    let pos = 0
+    let n = this.head
+    while (n.next && pos < idx) {
+      if (pos + 1 === idx) {
+        n.next = n.next.next
+        return
+      }
+      n = n.next
+      pos++
+    }
+  }
 
   //   done size
   size() {
@@ -98,25 +143,24 @@ class List {
   }
 }
 
-let n1 = new Node(1)
-
-let n2 = new Node(2)
-let n3 = new Node(3)
-let n4 = new Node(4)
-let n5 = new Node(5)
+// let n1 = new Node(1)
+// let n2 = new Node(2)
+// let n3 = new Node(3)
+// let n4 = new Node(4)
+// let n5 = new Node(5)
 // let n6 = new Node(6)
 
-let list = new List()
+let list = new List(0)
 
-list.addAtEnd(n1)
-list.addAtEnd(n2)
-list.addAtEnd(n3)
-list.addAtEnd(n4)
-list.addAtEnd(n5)
-// list.addAtFirst(n6)
+list.addAtEnd(1)
+list.addAtEnd(2)
+list.addAtEnd(3)
+list.addAtEnd(4)
+list.addAtEnd(5)
 
-list.printList()
-console.log(list.getAt(10))
+// list.addAtFirst(6)
+
+// console.log(list.getAt(10))
 
 // console.log(list.isEmpty())
 
@@ -130,4 +174,11 @@ console.log(list.getAt(10))
 // list.clear()
 // console.log(list.isEmpty())
 
-// todo provide value instead of node
+// list.removeAt(3)
+
+// list.printList()
+// list.addAt(-1, 2)
+// console.log("-----------------")
+// list.printList()
+
+// done provide value instead of node
